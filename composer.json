@@ -45,7 +45,7 @@
         "alleyinteractive/wordpress-autoloader": "^1.1"
     },
     "require-dev": {
-        "10up/wp_mock": "0.4.2",
+        "10up/wp_mock": "*",
         "antecedent/patchwork": "^2.1",
         "brianhenryie/color-logger": "^1.0",
         "brianhenryie/composer-phpstorm": "dev-master",
@@ -63,16 +63,15 @@
         "kporras07/composer-symlinks": "dev-master",
         "lucatume/wp-browser": "*",
         "phpcompatibility/phpcompatibility-wp": "*",
-        "phpstan/extension-installer": "^1.1",
+        "phpstan/extension-installer": "*",
         "phpunit/phpcov": "*",
         "squizlabs/php_codesniffer": "*",
-        "szepeviktor/phpstan-wordpress": "^0.7.2",
-        "voku/portable-ascii": "dev-master",
+        "szepeviktor/phpstan-wordpress": "*",
         "wordpress/wordpress": "*",
         "wp-cli/dist-archive-command": "dev-main",
         "wp-cli/i18n-command": "^2.4",
         "wp-cli/wp-cli-bundle": "*",
-        "wp-coding-standards/wpcs": "*  ",
+        "wp-coding-standards/wpcs": "*",
         "wpackagist-theme/twentytwenty": "*"
     },
     "extra": {
@@ -164,9 +163,15 @@
         "lint-changes": [
             "updated_files=$( git status | grep 'modified:\\s.*.php$' | cut -c14- | awk '{ printf(\"%s \", $0) }' ); vendor/bin/phpcbf $(echo $updated_files); vendor/bin/phpcs $(echo $updated_files); vendor/bin/phpstan analyse $(echo $updated_files) --memory-limit 1G"
         ],
+        "php-compatibility": [
+            "vendor/bin/phpcs -p src templates vendor-prefixed --standard=PHPCompatibilityWP --runtime-set testVersion 7.4-"
+        ],
         "create-plugin-archive": [
             "vendor/bin/wp i18n make-pot src languages/$(basename \"$PWD\").pot --domain=$(basename \"$PWD\")",
             "vendor/bin/wp dist-archive . ./dist-archive --plugin-dirname=$(basename \"$PWD\") --create-target-dir"
+        ],
+        "github-actions":  [
+            "act -P ubuntu-latest=shivammathur/node:latest"
         ]
     }
 }
