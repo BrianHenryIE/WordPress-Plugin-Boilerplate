@@ -2,6 +2,9 @@ parameters:
     level: 8
     paths:
         - src
+        - plugin-slug.php
+        - autoload.php
+        - uninstall.php
     excludePaths:
         - vendor-prefixed
     bootstrapFiles:
