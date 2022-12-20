@@ -18,11 +18,13 @@ extensions:
         - Codeception\Command\GenerateWPXMLRPC
 params:
     - .env.testing
-    - .env.secret
 coverage:
     enabled: true
     include:
-        - src/*
+        - /src/*
+        - /plugin-slug.php
+        - /uninstall.php
+        - /templates/*
     exclude:
         - /vendor/*
         - /dist-archive/*
