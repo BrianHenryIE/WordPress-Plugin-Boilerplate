@@ -8,8 +8,6 @@
 
 namespace Plugin_Package_Name;
 
-use Plugin_Package_Name\WP_Includes\Plugin_Package_Name;
-
 /**
  * Verifies the plugin has been instantiated and added to PHP's $GLOBALS variable.
  */
