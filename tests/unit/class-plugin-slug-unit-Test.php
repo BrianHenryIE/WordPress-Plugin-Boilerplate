@@ -8,16 +8,18 @@ namespace Plugin_Package_Name;
 
 use Plugin_Package_Name\Admin\Admin_Assets;
 use Plugin_Package_Name\Frontend\Frontend_Assets;
+use Plugin_Package_Name\WP_Includes\I18n;
 use WP_Mock\Matcher\AnyInstance;
 
 /**
  * Class Plugin_Snake_Unit_Test
+ *
  * @coversDefaultClass \Plugin_Package_Name\Plugin_Snake
  */
 class Plugin_Snake_Unit_Test extends \Codeception\Test\Unit {
 
 	protected function setUp(): void {
-	    parent::setUp();
+		parent::setUp();
 		\WP_Mock::setUp();
 	}
 
@@ -36,7 +38,8 @@ class Plugin_Snake_Unit_Test extends \Codeception\Test\Unit {
 			array( new AnyInstance( I18n::class ), 'load_plugin_textdomain' )
 		);
 
-		new Plugin_Snake();
+		$settings = $this->make( Settings::class );
+		new Plugin_Snake( $settings );
 	}
 
 	/**
@@ -54,7 +57,8 @@ class Plugin_Snake_Unit_Test extends \Codeception\Test\Unit {
 			array( new AnyInstance( Admin_Assets::class ), 'enqueue_scripts' )
 		);
 
-		new Plugin_Snake();
+		$settings = $this->make( Settings::class );
+		new Plugin_Snake( $settings );
 	}
 
 	/**
@@ -72,7 +76,8 @@ class Plugin_Snake_Unit_Test extends \Codeception\Test\Unit {
 			array( new AnyInstance( Frontend_Assets::class ), 'enqueue_scripts' )
 		);
 
-		new Plugin_Snake();
+		$settings = $this->make( Settings::class );
+		new Plugin_Snake( $settings );
 	}
 
 }

@@ -10,6 +10,8 @@
 
 namespace Plugin_Package_Name\Admin;
 
+use Plugin_Package_Name\Settings;
+
 /**
  * Class Admin_Test
  *
@@ -18,7 +20,7 @@ namespace Plugin_Package_Name\Admin;
 class Admin_Assets_Test extends \Codeception\Test\Unit {
 
 	protected function setUp(): void {
-	    parent::setUp();
+		parent::setUp();
 		\WP_Mock::setUp();
 	}
 
@@ -36,28 +38,37 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 	 */
 	public function test_enqueue_styles(): void {
 
-		global $plugin_root_dir, $plugin_name;
+		global $plugin_root_dir, $plugin_slug;
 
 		// Return any old url.
 		\WP_Mock::userFunction(
 			'plugin_dir_url',
 			array(
-				'return' => "https://example.org/wp-content/plugins/{$plugin_name}/",
+				'return' => "https://example.org/wp-content/plugins/{$plugin_slug}/",
+				'times'  => 1,
 			)
 		);
 
 		$css_file = $plugin_root_dir . '/assets/plugin-slug-admin.css';
-		$css_url  = $plugin_root_dir . '/assets/plugin-slug-admin.css';
+		$css_url  = "https://example.org/wp-content/plugins/{$plugin_slug}/assets/plugin-slug-admin.css";
 
 		\WP_Mock::userFunction(
 			'wp_enqueue_style',
 			array(
 				'times' => 1,
-				'args'  => array( $plugin_name, $css_url, array(), '1.0.0', 'all' ),
+				'args'  => array( $plugin_slug, $css_url, array(), '1.0.0', 'all' ),
 			)
 		);
 
-		$admin = new Admin_Assets();
+		$settings = $this->make(
+			Settings::class,
+			array(
+				'get_plugin_version'  => '1.0.0',
+				'get_plugin_basename' => 'plugin-slug/plugin-slug.php',
+			)
+		);
+
+		$admin = new Admin_Assets( $settings );
 
 		$admin->enqueue_styles();
 
@@ -73,19 +84,19 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 	 */
 	public function test_enqueue_scripts(): void {
 
-		global $plugin_root_dir, $plugin_name;
+		global $plugin_root_dir, $plugin_slug;
 
 		// Return any old url.
 		\WP_Mock::userFunction(
 			'plugin_dir_url',
 			array(
-				'return' => "https://example.org/wp-content/plugins/{$plugin_name}/",
+				'return' => "https://example.org/wp-content/plugins/{$plugin_slug}/",
 			)
 		);
 
-		$handle    = $plugin_name;
+		$handle    = $plugin_slug;
 		$js_file   = $plugin_root_dir . '/assets/plugin-slug-admin.js';
-		$js_url    = "https://example.org/wp-content/plugins/{$plugin_name}/assets/plugin-slug-admin.js";
+		$js_url    = "https://example.org/wp-content/plugins/{$plugin_slug}/assets/plugin-slug-admin.js";
 		$deps      = array( 'jquery' );
 		$ver       = '1.0.0';
 		$in_footer = true;
@@ -98,7 +109,15 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 			)
 		);
 
-		$admin = new Admin_Assets();
+		$settings = $this->make(
+			Settings::class,
+			array(
+				'get_plugin_version'  => '1.0.0',
+				'get_plugin_basename' => 'plugin-slug/plugin-slug.php',
+			)
+		);
+
+		$admin = new Admin_Assets( $settings );
 
 		$admin->enqueue_scripts();
 

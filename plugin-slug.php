@@ -36,7 +36,7 @@ use Plugin_Package_Name\WP_Includes\Deactivator;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	throw new \Exception('WordPress required but not loaded');
+	throw new \Exception( 'WordPress required but not loaded.' );
 }
 
 require_once plugin_dir_path( __FILE__ ) . 'autoload.php';
@@ -65,7 +65,9 @@ register_deactivation_hook( __FILE__, array( Deactivator::class, 'deactivate' ) 
  */
 function instantiate_plugin_snake_lower(): Plugin_Snake {
 
-	$plugin = new Plugin_Snake();
+	$settings = new Settings();
+
+	$plugin = new Plugin_Snake( $settings );
 
 	return $plugin;
 }

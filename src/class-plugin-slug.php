@@ -29,6 +29,13 @@ use Plugin_Package_Name\WP_Includes\I18n;
 class Plugin_Snake {
 
 	/**
+	 * The plugin settings.
+	 *
+	 * @var Settings
+	 */
+	protected Settings $settings;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -36,13 +43,16 @@ class Plugin_Snake {
 	 * the frontend-facing side of the site.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param Settings $settings The plugin settings, to pass to classes as they are instantiated.
 	 */
-	public function __construct() {
+	public function __construct( Settings $settings ) {
+
+		$this->settings = $settings;
 
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_frontend_hooks();
-
 	}
 
 	/**
@@ -69,7 +79,7 @@ class Plugin_Snake {
 	 */
 	protected function define_admin_hooks(): void {
 
-		$admin_assets = new Admin_Assets();
+		$admin_assets = new Admin_Assets( $this->settings );
 
 		add_action( 'admin_enqueue_scripts', array( $admin_assets, 'enqueue_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $admin_assets, 'enqueue_scripts' ) );
@@ -84,7 +94,7 @@ class Plugin_Snake {
 	 */
 	protected function define_frontend_hooks(): void {
 
-		$frontend_assets = new Frontend_Assets();
+		$frontend_assets = new Frontend_Assets( $this->settings );
 
 		add_action( 'wp_enqueue_scripts', array( $frontend_assets, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $frontend_assets, 'enqueue_scripts' ) );

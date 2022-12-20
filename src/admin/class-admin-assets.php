@@ -10,6 +10,8 @@
 
 namespace Plugin_Package_Name\Admin;
 
+use Plugin_Package_Name\Settings;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -17,6 +19,25 @@ namespace Plugin_Package_Name\Admin;
  * enqueue the admin-specific stylesheet and JavaScript.
  */
 class Admin_Assets {
+
+	/**
+	 * The plugin settings.
+	 *
+	 * @uses Settings::get_plugin_version() for caching.
+	 * @uses Settings::get_plugin_basename() for determining the plugin URL.
+	 *
+	 * @var Settings
+	 */
+	protected Settings $settings;
+
+	/**
+	 * Constructor
+	 *
+	 * @param Settings $settings The plugin settings.
+	 */
+	public function __construct( Settings $settings ) {
+		$this->settings = $settings;
+	}
 
 	/**
 	 * Register the stylesheets for the admin area.
@@ -38,9 +59,9 @@ class Admin_Assets {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$version = defined( 'PLUGIN_NAME_VERSION' ) ? PLUGIN_NAME_VERSION : '1.0.0';
+		$version = $this->settings->get_plugin_version();
 
-		$plugin_dir = plugin_dir_url( PLUGIN_NAME_BASENAME );
+		$plugin_dir = plugin_dir_url( $this->settings->get_plugin_basename() );
 
 		wp_enqueue_style( 'plugin-slug', $plugin_dir . 'assets/plugin-slug-admin.css', array(), $version, 'all' );
 
@@ -66,9 +87,9 @@ class Admin_Assets {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$version = defined( 'PLUGIN_NAME_VERSION' ) ? PLUGIN_NAME_VERSION : '1.0.0';
+		$version = $this->settings->get_plugin_version();
 
-		$plugin_dir = plugin_dir_url( PLUGIN_NAME_BASENAME );
+		$plugin_dir = plugin_dir_url( $this->settings->get_plugin_basename() );
 
 		wp_enqueue_script( 'plugin-slug', $plugin_dir . 'assets/plugin-slug-admin.js', array( 'jquery' ), $version, true );
 
