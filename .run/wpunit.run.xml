@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="wpunit" type="CodeceptionConfigurationType" factoryName="Codeception">
+    <PhpTestRunnerSettings method="" scope="ConfigurationFile" options="wpunit" />
+    <method v="2" />
+  </configuration>
+</component>
