@@ -37,30 +37,18 @@ jobs:
           tools: composer, cs2pr
           extensions: zip
 
+      - name: Update environment config for GitHub Actions
+        env:
+          PLUGIN_SLUG: ${{ github.event.repository.name }}
+        run: |
+          find . -depth \( -name '.env.testing' \) -exec sed -i "s/TEST_SITE_DB_HOST=\"127.0.0.1\"/TEST_SITE_DB_HOST=\"127.0.0.1:${{ job.services.mysql.ports['3306'] }}\"/g" {} +
+          find . -depth \( -name '.env.testing' -o -name '*.cest' \) -exec sed -i "s/localhost:8080\/${{ env.PLUGIN_SLUG }}/localhost:8080/g" {} +
+          find . -depth \( -name 'dump.sql' \) -exec sed -i "s/localhost:8080\/${{ env.PLUGIN_SLUG }}/localhost:8080/g" {} +
+
       - name: Read .env.testing
         uses: c-py/action-dotenv-to-setenv@v2
         with:
           env-file: .env.testing
-
-      - name: Read .env.github
-        uses: c-py/action-dotenv-to-setenv@v2
-        with:
-          env-file: .env.github
-
-      #      - name: Make envfile from Secrets
-      #        uses: SpicyPizza/create-envfile@v1.1
-      #        with:
-      #          envkey_SECRET_NAME: ${{ secrets.SECRET_NAME }}
-      #          directory: ${{ github.workspace }}
-      #          file_name: .env.secret
-
-      #      - name: Read .env.secret
-      #        uses: c-py/action-dotenv-to-setenv@v2
-      #        with:
-      #          env-file: .env.secret
-
-      - name: Set env database host w/port
-        run: echo "TEST_SITE_DB_HOST=127.0.0.1:${{ job.services.mysql.ports['3306'] }}" >> $GITHUB_ENV
 
       - name: Configure MySQL
         run: |
@@ -68,27 +56,25 @@ jobs:
           mysql -h 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root -ppassword -e "CREATE DATABASE "$TEST_SITE_DB_NAME"; USE "$TEST_SITE_DB_NAME"; GRANT ALL PRIVILEGES ON "$TEST_SITE_DB_NAME".* TO '"$TEST_DB_USER"'@'%';";
           mysql -h 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root -ppassword -e "CREATE DATABASE "$TEST_DB_NAME"; USE "$TEST_DB_NAME"; GRANT ALL PRIVILEGES ON "$TEST_DB_NAME".* TO '"$TEST_DB_USER"'@'%';";
 
-      - name: Create Composer auth.json
-        run: php -r "file_put_contents( 'auth.json', json_encode( [ 'http-basic' => [ 'blog.brianhenry.ie' => [ 'username' => '"${{ secrets.COMPOSER_AUTH_SECRET }}"', 'password' => 'satispress' ] ] ] ) );"
+      #      - name: Create Composer auth.json
+      #        run: php -r "file_put_contents( 'auth.json', json_encode( [ 'http-basic' => [ 'blog.brianhenry.ie' => [ 'username' => '"${{ secrets.COMPOSER_AUTH_SECRET }}"', 'password' => 'satispress' ] ] ] ) );"
 
       - name: Run composer install
-        uses: php-actions/composer@v6
-        with:
-          args: --ignore-platform-reqs
+        continue-on-error: true
+        run: composer install
 
       - name: Create wpconfig ... the composer.json creation didn't work
         run: |
           export $(grep -v '^#' .env.testing | xargs);
           sudo vendor/bin/wp config create --dbname=$TEST_SITE_DB_NAME --dbuser=$TEST_SITE_DB_USER --dbpass=$TEST_SITE_DB_PASSWORD --dbhost=127.0.0.1:${{ job.services.mysql.ports['3306'] }} --allow-root --extra-php="define( 'WP_DEBUG', true ); define( 'WP_DEBUG_LOG', true );"
 
-      - name: Update site URL to match GA
-        run: |
-          vendor/bin/wp option update home 'http://localhost:8080'
-          vendor/bin/wp option update siteurl 'http://localhost:8080'
-
       - name: Run PHPCBF to fix what it can
         continue-on-error: true
         run: vendor/bin/phpcbf
+
+      - name: Run PHPCS to add annotations to the code
+        continue-on-error: true
+        run: vendor/bin/phpcs -q -n --report=checkstyle | cs2pr
 
       - name: Discard environment changes before commiting other changes
         run: |
@@ -100,6 +86,3 @@ jobs:
         with:
           commit_message: "🤖 PHPCBF"
 
-      - name: Run PHPCS to add annotations to the commit
-        continue-on-error: true
-        run: vendor/bin/phpcs -q -n --report=checkstyle | cs2pr
