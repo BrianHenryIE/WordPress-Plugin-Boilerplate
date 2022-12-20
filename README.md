@@ -104,7 +104,7 @@ find . -depth \( -name '*.php' -o -name '*.txt' -o -name '.env.testing' -o -name
 find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' -o -name '.env.testing'  -o -name '*.yml' -o -name '.gitignore' -o -name '.htaccess' -o -name '*.md' \) -exec sed -i '' 's/plugin-slug/'$plugin_slug'/g' {} +
 find . -depth \( -name '*.php' -o -name '*.testing' \) -exec sed -i '' 's/plugin_snake_lower/'$plugin_snake_lower'/g' {} +
 find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' \) -exec sed -i '' 's/Plugin_Snake/'$plugin_snake'/g' {} \;
-find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' \) -exec sed -i '' 's/Plugin_Package_Name/'$plugin_package_name'/g' {} \;
+find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.xml' \) -exec sed -i '' 's/Plugin_Package_Name/'$plugin_package_name'/g' {} \;
 find . -type f \( -name '*.json' \) -exec sed -i '' 's/Plugin_Package_Name/'$(echo $plugin_package_name | sed 's/\\/\\\\/g')'/g' {} \;
 find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' \) -exec sed -i '' 's#PHP_Package_Name#'$php_package_name'#g' {} \;
 find . -depth -name '*.php' -exec sed -i '' 's/PLUGIN_NAME/'$plugin_capitalized'/g' {} +
@@ -209,14 +209,14 @@ gh repo create $PLUGIN_SLUG --public --push --source . ;
 Setup gh-pages branch (for code coverage html report)).
 
 ```
-git checkout --orphan gh-pages
+git checkout --orphan gh-pages;
 
-touch index.html
-git add index.html
-git commit -m 'Set up gh-pages branch' index.html
+touch index.html;
+git add index.html;
+git commit -m 'Set up gh-pages branch' index.html;
 
-git push origin gh-pages
-git checkout master
+git push origin gh-pages;
+git checkout master;
 ```
 
 Start a dev branch.
@@ -529,6 +529,15 @@ The minimum WordPress version can be determined using [wpseek.com's Plugin Docto
 * Disable commiting to master
 * Update Git origin instruction
 * Composer scripts
+
+Tools to investigate:
+
+* https://github.com/bruli/php-git-hooks
+* https://github.com/olivertappin/phpcs-diff
+* https://github.com/barryvdh/composer-cleanup-plugin
+* https://github.com/aaemnnosttv/wp-sqlite-db
+* https://github.com/Automattic/wordbless
+* https://github.com/alstr/todo-to-issue-action
 
 I have made some progress on a lot of these open an issue with changes you propose working on and I'll tidy up what I have and hopefully save you some time
 
