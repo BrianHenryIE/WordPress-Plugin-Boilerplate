@@ -13,32 +13,30 @@ namespace Plugin_Package_Name;
  */
 class Plugin_Unit_Test extends \Codeception\Test\Unit {
 
-    protected function setUp() : void
-    {
-        parent::setUp();
-        \WP_Mock::setUp();
-    }
+	protected function setUp() : void {
+		parent::setUp();
+		\WP_Mock::setUp();
+	}
 
-    public function tearDown(): void
-    {
-        \WP_Mock::tearDown();
-        parent::tearDown();
-    }
+	public function tearDown(): void {
+		\WP_Mock::tearDown();
+		parent::tearDown();
+	}
 
-    /**
-     * Verifies the plugin initialization.
-     * Verifies the plugin does not output anything to screen.
-     */
+	/**
+	 * Verifies the plugin initialization.
+	 * Verifies the plugin does not output anything to screen.
+	 */
 	public function test_plugin_include(): void {
 
-        // Prevents code-coverage counting, and removes the need to define the WordPress functions that are used in that class.
-        \Patchwork\redefine(
-            array( Plugin_Snake::class, '__construct' ),
-            function() {}
-        );
+		// Prevents code-coverage counting, and removes the need to define the WordPress functions that are used in that class.
+		\Patchwork\redefine(
+			array( Plugin_Snake::class, '__construct' ),
+			function() {}
+		);
 
 		// Defined in `bootstrap.php`.
-		global $plugin_root_dir, $plugin_name, $plugin_basename;
+		global $plugin_root_dir, $plugin_slug, $plugin_basename;
 
 		\WP_Mock::userFunction(
 			'plugin_dir_path',
@@ -60,7 +58,7 @@ class Plugin_Unit_Test extends \Codeception\Test\Unit {
 			'plugins_url',
 			array(
 				'args'   => array( \WP_Mock\Functions::type( 'string' ) ),
-				'return' => 'http://localhost:8080/' . $plugin_name,
+				'return' => 'http://localhost:8080/' . $plugin_slug,
 				'times'  => 1,
 			)
 		);
@@ -68,16 +66,16 @@ class Plugin_Unit_Test extends \Codeception\Test\Unit {
 		\WP_Mock::userFunction(
 			'trailingslashit',
 			array(
-				'args'   => array( \WP_Mock\Functions::type( 'string' ) ),
+				'args'       => array( \WP_Mock\Functions::type( 'string' ) ),
 				'return_arg' => true,
-				'times' => 1,
+				'times'      => 1,
 			)
 		);
 
 		\WP_Mock::userFunction(
 			'register_activation_hook',
 			array(
-				'args'   => array( \WP_Mock\Functions::type( 'string' ), \WP_Mock\Functions::type( 'array' ) ),
+				'args'  => array( \WP_Mock\Functions::type( 'string' ), \WP_Mock\Functions::type( 'array' ) ),
 				'times' => 1,
 			)
 		);
@@ -85,25 +83,25 @@ class Plugin_Unit_Test extends \Codeception\Test\Unit {
 		\WP_Mock::userFunction(
 			'register_deactivation_hook',
 			array(
-				'args'   => array( \WP_Mock\Functions::type( 'string' ), \WP_Mock\Functions::type( 'array' ) ),
+				'args'  => array( \WP_Mock\Functions::type( 'string' ), \WP_Mock\Functions::type( 'array' ) ),
 				'times' => 1,
 			)
 		);
 
-        ob_start();
+		ob_start();
 
 		include $plugin_root_dir . '/plugin-slug.php';
 
-        $printed_output = ob_get_contents();
+		$printed_output = ob_get_contents();
 
-        ob_end_clean();
+		ob_end_clean();
 
-        $this->assertEmpty( $printed_output );
+		$this->assertEmpty( $printed_output );
 
 		$this->assertArrayHasKey( 'plugin_snake_lower', $GLOBALS );
 
 		$this->assertInstanceOf( Plugin_Snake::class, $GLOBALS['plugin_snake_lower'] );
 
 	}
-    
+
 }

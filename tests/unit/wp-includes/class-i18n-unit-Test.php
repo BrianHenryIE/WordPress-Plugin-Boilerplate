@@ -16,7 +16,7 @@ namespace Plugin_Package_Name\WP_Includes;
 class I18n_Unit_Test extends \Codeception\Test\Unit {
 
 	protected function setUp(): void {
-	    parent::setUp();
+		parent::setUp();
 		\WP_Mock::setUp();
 	}
 
@@ -34,30 +34,30 @@ class I18n_Unit_Test extends \Codeception\Test\Unit {
 
 		global $plugin_root_dir;
 
-        \WP_Mock::userFunction(
-            'plugin_basename',
-            array(
-                'args'   => array(
-                    \WP_Mock\Functions::type( 'string' )
-                ),
-                'return' => 'plugin-slug',
-                'times' => 1
-            )
-        );
-
-        \WP_Mock::userFunction(
-			'load_plugin_textdomain',
+		\WP_Mock::userFunction(
+			'plugin_basename',
 			array(
-                'times' => 1,
 				'args'   => array(
-					'plugin-slug',
-					false,
-					'plugin-slug/languages/',
-				)
+					\WP_Mock\Functions::type( 'string' ),
+				),
+				'return' => 'plugin-slug',
+				'times'  => 1,
 			)
 		);
 
-        $i18n = new I18n();
-        $i18n->load_plugin_textdomain();
+		\WP_Mock::userFunction(
+			'load_plugin_textdomain',
+			array(
+				'times' => 1,
+				'args'  => array(
+					'plugin-slug',
+					false,
+					'plugin-slug/languages/',
+				),
+			)
+		);
+
+		$i18n = new I18n();
+		$i18n->load_plugin_textdomain();
 	}
 }
