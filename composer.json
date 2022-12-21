@@ -101,9 +101,6 @@
                     "wp-content/plugins/plugin-slug",
                     "wordpress/wp-content"
                 ],
-                "include_folders": [
-                    "vendor/wordpress/wordpress/"
-                ],
                 "composer-symlinks": false
             }
         }
