@@ -19,7 +19,7 @@ class Plugin_Snake_Integration_Test extends \Codeception\TestCase\WPTestCase {
 
 	public function hooks(): array {
 		$hooks = array(
-			array( 'init', I18n::class, 'load_plugin_textdomain' ),
+			array( 'plugins_loaded', I18n::class, 'load_plugin_textdomain' ),
 			array( 'admin_enqueue_scripts', Admin_Assets::class, 'enqueue_styles' ),
 			array( 'admin_enqueue_scripts', Admin_Assets::class, 'enqueue_scripts' ),
 			array( 'wp_enqueue_scripts', Frontend_Assets::class, 'enqueue_styles' ),
