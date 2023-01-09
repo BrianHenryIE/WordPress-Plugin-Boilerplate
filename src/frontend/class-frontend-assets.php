@@ -49,9 +49,9 @@ class Frontend_Assets {
 	public function enqueue_styles(): void {
 		$version = $this->settings->get_plugin_version();
 
-		$plugin_dir = plugin_dir_url( $this->settings->get_plugin_basename() );
+		$plugin_url = plugin_dir_url( $this->settings->get_plugin_basename() );
 
-		wp_enqueue_style( 'plugin-slug', $plugin_dir . 'assets/plugin-slug-frontend.css', array(), $version, 'all' );
+		wp_enqueue_style( 'plugin-slug', $plugin_url . 'assets/plugin-slug-frontend.css', array(), $version, 'all' );
 
 	}
 
@@ -65,9 +65,9 @@ class Frontend_Assets {
 	public function enqueue_scripts(): void {
 		$version = $this->settings->get_plugin_version();
 
-		$plugin_dir = plugin_dir_url( $this->settings->get_plugin_basename() );
+		$plugin_url = plugin_dir_url( $this->settings->get_plugin_basename() );
 
-		wp_enqueue_script( 'plugin-slug', $plugin_dir . 'assets/plugin-slug-frontend.js', array( 'jquery' ), $version, false );
+		wp_enqueue_script( 'plugin-slug', $plugin_url . 'assets/plugin-slug-frontend.js', array( 'jquery' ), $version, false );
 
 	}
 
