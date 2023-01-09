@@ -21,6 +21,8 @@ namespace Plugin_Package_Name\WP_Includes;
  */
 class I18n {
 
+	const TEXTDOMAIN = 'plugin-slug';
+
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -31,7 +33,7 @@ class I18n {
 	public function load_plugin_textdomain(): void {
 
 		load_plugin_textdomain(
-			'plugin-slug',
+			self::TEXTDOMAIN,
 			false,
 			plugin_basename( dirname( __FILE__, 3 ) ) . '/languages/'
 		);
