@@ -85,7 +85,6 @@
         },
         "strauss": {
             "namespace_prefix": "Plugin_Package_Name\\",
-            "target_directory": "/vendor-prefixed/",
             "classmap_prefix": "Plugin_Snake_"
         },
         "symlinks": {
