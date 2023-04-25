@@ -18,13 +18,7 @@ use Plugin_Package_Name\Frontend\Frontend_Assets;
 use Plugin_Package_Name\WP_Includes\I18n;
 
 /**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * frontend-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
+ * Hooks the plugin's classes to WordPress's actions and filters.
  */
 class Plugin_Snake {
 
