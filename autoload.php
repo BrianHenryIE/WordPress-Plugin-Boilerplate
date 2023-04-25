@@ -2,13 +2,11 @@
 /**
  * Loads all required classes
  *
- * Uses classmap, PSR4 & wp-namespace-autoloader.
+ * Uses classmap autoloader and WPCS autoloader.
  *
  * @link              http://example.com
  * @since             1.0.0
  * @package           PHP_Package_Name
- *
- * @see https://github.com/pablo-sg-pacheco/wp-namespace-autoloader/
  */
 
 namespace Plugin_Package_Name;
