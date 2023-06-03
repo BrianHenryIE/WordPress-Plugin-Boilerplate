@@ -529,6 +529,10 @@ The minimum WordPress version can be determined using [wpseek.com's Plugin Docto
 * Disable commiting to master
 * Update Git origin instruction
 * Composer scripts
+* PATH=$PATH:./vendor/bin
+* https://raw.githubusercontent.com/composer/composer/main/res/composer-schema.json 
+* https://github.com/ImageOptim/gifski
+
 
 Tools to investigate:
 
@@ -538,6 +542,7 @@ Tools to investigate:
 * https://github.com/aaemnnosttv/wp-sqlite-db
 * https://github.com/Automattic/wordbless
 * https://github.com/alstr/todo-to-issue-action
+* Dudo1985/WPDocGen
 
 I have made some progress on a lot of these open an issue with changes you propose working on and I'll tidy up what I have and hopefully save you some time
 
