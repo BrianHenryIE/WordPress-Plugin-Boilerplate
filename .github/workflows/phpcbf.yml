@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -82,7 +82,7 @@ jobs:
           git checkout -- tests/_data/dump.sql
 
       - name: Commit PHPCBF changes
-        uses: stefanzweifel/git-auto-commit-action@v4.1.1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "🤖 PHPCBF"
 
