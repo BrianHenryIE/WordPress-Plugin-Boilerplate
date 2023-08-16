@@ -135,7 +135,7 @@
             "@restore-acceptance-database"
         ],
         "delete-databases": [
-            "export $(grep -v '^#' .env.testing | xargs); DB_DIR=$(mysql -e \"select @@datadir\" -N -B); rm -rf $DB_DIR$TEST_SITE_DB_NAME; rm -rf  $DB_DIR$TEST_DB_NAME;"
+            "export $(grep -v '^#' .env.testing | xargs); DB_DIR=$(mysql -e \"select @@datadir\" -N -B); if [[ \"$DB_DIR\" != \"$DB_DIR$TEST_SITE_DB_NAME\" ]]; then rm -rf $DB_DIR$TEST_SITE_DB_NAME; fi; if [[ \"$DB_DIR\" != \"$DB_DIR$TEST_DB_NAME\" ]]; then rm -rf $DB_DIR$TEST_DB_NAME; fi;"
         ],
         "save-acceptance-database": [
             "export $(grep -v '^#' .env.testing | xargs); mysqldump -u $TEST_SITE_DB_USER -p$TEST_SITE_DB_PASSWORD  $TEST_SITE_DB_NAME > tests/_data/dump.sql;"
