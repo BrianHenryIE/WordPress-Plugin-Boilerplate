@@ -13,7 +13,7 @@ namespace Plugin_Package_Name\Admin;
 use Plugin_Package_Name\Settings;
 
 /**
- * The admin-specific functionality of the plugin.
+ * The admin-specific JS and CSS of the plugin.
  *
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
@@ -76,23 +76,35 @@ class Admin_Assets {
 	 */
 	public function enqueue_scripts(): void {
 
+		// TODO: Conditionally load this, only on our own settings page.
+
 		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
+		 * Load the file at assets/plugin-slug-admin.js on every admin page.
 		 */
-		$version = $this->settings->get_plugin_version();
+		wp_enqueue_script(
+			$this->settings->get_plugin_slug(),
+			plugin_dir_url( $this->settings->get_plugin_basename() ) . 'assets/plugin-slug-admin.js',
+			array( 'jquery' ),
+			$this->settings->get_plugin_version(),
+			true
+		);
 
-		$plugin_dir = plugin_dir_url( $this->settings->get_plugin_basename() );
+		$script_data      = array(
+			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
+			'nonce'     => wp_create_nonce( self::class ),
+			'isWpDebug' => defined( 'WP_DEBUG' ) ? constant('WP_DEBUG') : false,
+		);
+		$script_data_json = wp_json_encode( $script_data, JSON_PRETTY_PRINT );
 
-		wp_enqueue_script( 'plugin-slug', $plugin_dir . 'assets/plugin-slug-admin.js', array( 'jquery' ), $version, true );
+		$script = <<<EOD
+var plugin_snake_lower_script_data = $script_data_json;
+EOD;
 
+		wp_add_inline_script(
+			$this->settings->get_plugin_slug(),
+			$script,
+			'before'
+		);
 	}
 
 }

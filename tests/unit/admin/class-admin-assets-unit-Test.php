@@ -95,8 +95,8 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 		);
 
 		$handle    = $plugin_slug;
-		$js_file   = $plugin_root_dir . '/assets/plugin-slug-admin.js';
-		$js_url    = "https://example.org/wp-content/plugins/{$plugin_slug}/assets/plugin-slug-admin.js";
+		$js_file   = $plugin_root_dir . '/assets/bh-wc-bitcoinpostage-shipping-method-admin.js';
+		$js_url    = "https://example.org/wp-content/plugins/{$plugin_slug}/assets/bh-wc-bitcoinpostage-shipping-method-admin.js";
 		$deps      = array( 'jquery' );
 		$ver       = '1.0.0';
 		$in_footer = true;
@@ -109,11 +109,50 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 			)
 		);
 
+		\WP_Mock::userFunction(
+			'admin_url',
+			array(
+				'times' => 1,
+				'args'  => array( 'admin-ajax.php' ),
+			)
+		);
+
+		\WP_Mock::userFunction(
+			'wp_create_nonce',
+			array(
+				'times' => 1,
+				'args'  => array( Admin_Assets::class ),
+			)
+		);
+
+		\WP_Mock::userFunction(
+			'wp_json_encode',
+			array(
+				'times' => 1,
+				'args'  => array(
+					\WP_Mock\Functions::type( 'array' ),
+					\WP_Mock\Functions::type( 'int' )
+				),
+			)
+		);
+
+		\WP_Mock::userFunction(
+			'wp_add_inline_script',
+			array(
+				'times' => 1,
+				'args'  => array(
+					'plugin-slug',
+					\WP_Mock\Functions::type( 'string' ),
+					'before'
+				),
+			)
+		);
+
 		$settings = $this->make(
 			Settings::class,
 			array(
 				'get_plugin_version'  => '1.0.0',
-				'get_plugin_basename' => 'plugin-slug/plugin-slug.php',
+				'get_plugin_basename' => 'bh-wc-bitcoinpostage-shipping-method/bh-wc-bitcoinpostage-shipping-method.php',
 			)
 		);
 
