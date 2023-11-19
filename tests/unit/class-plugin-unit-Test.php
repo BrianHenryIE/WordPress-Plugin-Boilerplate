@@ -8,6 +8,9 @@
 
 namespace Plugin_Package_Name;
 
+use BrianHenryIE\WP_Logger\Logger;
+use Psr\Log\NullLogger;
+
 /**
  * Class Plugin_WP_Mock_Test
  */
@@ -33,6 +36,11 @@ class Plugin_Unit_Test extends \Codeception\Test\Unit {
 		\Patchwork\redefine(
 			array( Plugin_Snake::class, '__construct' ),
 			function() {}
+		);
+
+		\Patchwork\redefine(
+			array( Logger::class, 'instance' ),
+			function( $settings ) { return new NullLogger(); }
 		);
 
 		// Defined in `bootstrap.php`.
