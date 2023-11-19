@@ -12,15 +12,18 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "process-timeout": 0,
-        "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "johnpbloch/wordpress-core-installer": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "platform": {
+            "php": "7.4"
+        },
+        "process-timeout": 0,
+        "sort-packages": true
     },
     "autoload-dev": {
         "psr-4": {
@@ -76,6 +79,7 @@
         "lucatume/wp-browser": "*",
         "phpcompatibility/phpcompatibility-wp": "*",
         "phpstan/extension-installer": "*",
+        "phpstan/phpstan-phpunit": "*",
         "phpunit/phpcov": "*",
         "squizlabs/php_codesniffer": "*",
         "szepeviktor/phpstan-wordpress": "*",
