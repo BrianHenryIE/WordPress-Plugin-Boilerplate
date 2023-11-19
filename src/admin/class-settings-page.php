@@ -116,7 +116,7 @@ class Settings_Page {
 		$setting_id = 'plugin-snake-lower_log_level';
 
 		$print_settings_field_args = array(
-			'helper' => __( 'Set to Debug to diagnose problems, Info to see times this plugin is logging users in. Warning: debug logs will contain autologin codes.', 'plugin-slug' ),
+			'helper' => __( 'Set to Debug to diagnose problems, Info to see standard operation of this plugin. NB: Debug logs may contain private information.', 'bh-wc-bitcoinpostage-shipping-method' ),
 			'supplemental' => __( 'default: Notice', 'plugin-slug' ),
 		);
 
@@ -165,7 +165,7 @@ class Settings_Page {
 				'options' => $log_levels,
 				'selected' => $this->settings->get_log_level(),
 				'selected_name' => ucfirst( $this->settings->get_log_level() ),
-				'helper' => __( 'Set to Debug to diagnose problems, Info to see times this plugin is logging users in. Warning: debug logs will contain autologin codes.', 'plugin-slug' ),
+				'helper' => $args['helper'],
 				'supplemental' =>$supplemental,
 			)
 		);
