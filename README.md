@@ -162,13 +162,10 @@ vendor/bin/codecept run acceptance;
 If this is a WooCommerce plugin:
 
 ```
-composer require wpackagist-plugin/woocommerce --dev --no-scripts;
-# or if you need the WooCommerce test helpers:
-# composer require woocommerce/woocommerce --dev --no-scripts;
-# ... although this requires extra setup commands not included here.
-
-composer require wpackagist-theme/storefront --dev --no-scripts;
-composer require php-stubs/woocommerce-stubs --dev --no-scripts;
+# Uses :"*" because WooCommerce does not follow semver.
+composer require wpackagist-plugin/woocommerce:"*" --dev --no-scripts;
+composer require wpackagist-theme/storefront:"*" --dev --no-scripts;
+composer require php-stubs/woocommerce-stubs:"*" --dev --no-scripts;
 
 vendor/bin/wp plugin activate woocommerce;
 vendor/bin/wp theme activate storefront;
@@ -200,10 +197,10 @@ git add README.md;
 git commit -m "Initial commit";
 ```
 
-Set up GitHub using [GitHub CLI](https://cli.github.com/) (`brew install gh`, `gh auth login`). You might want to set the repo private here too, by appending `--private`.
+Set up GitHub using [GitHub CLI](https://cli.github.com/) (`brew install gh`, `gh auth login`). You might want to set the repo private here too, by appending `--private` instead.
 
 ```
-gh repo create $PLUGIN_SLUG --public --push --source . ;
+gh repo create $PLUGIN_SLUG --push --source . --public;
 ```
 
 Setup gh-pages branch (for code coverage html report)).
@@ -545,6 +542,10 @@ Tools to investigate:
 * Dudo1985/WPDocGen
 
 I have made some progress on a lot of these open an issue with changes you propose working on and I'll tidy up what I have and hopefully save you some time
+
+### Alternatives
+
+* https://github.com/brandonkramer/wordpress-plugin-boilerplate
 
 ## Acknowledgements
 
