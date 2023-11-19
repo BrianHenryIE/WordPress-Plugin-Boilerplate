@@ -32,6 +32,14 @@
             "url": "https://github.com/BrianHenryIE/composer-phpstorm",
             "type": "git"
         },
+        "brianhenryie/bh-wp-logger": {
+            "url": "https://github.com/BrianHenryIE/bh-wp-logger",
+            "type": "git"
+        },
+        "brianhenryie/bh-wp-private-uploads": {
+            "url": "https://github.com/BrianHenryIE/bh-wp-private-uploads",
+            "type": "git"
+        },
         "outlandish/wpackagist": {
             "type": "composer",
             "url": "https://wpackagist.org"
@@ -43,7 +51,9 @@
     },
     "require": {
         "php": ">=7.4",
-        "alleyinteractive/wordpress-autoloader": "^1.1"
+        "alleyinteractive/wordpress-autoloader": "^1.1",
+        "brianhenryie/bh-wp-logger": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "10up/wp_mock": "*",

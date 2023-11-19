@@ -14,6 +14,7 @@
 namespace Plugin_Package_Name;
 
 use Plugin_Package_Name\Admin\Admin_Assets;
+use Plugin_Package_Name\Admin\Settings_Page;
 use Plugin_Package_Name\Frontend\Frontend_Assets;
 use Plugin_Package_Name\WP_Includes\I18n;
 
@@ -74,10 +75,13 @@ class Plugin_Snake {
 	protected function define_admin_hooks(): void {
 
 		$admin_assets = new Admin_Assets( $this->settings );
-
 		add_action( 'admin_enqueue_scripts', array( $admin_assets, 'enqueue_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $admin_assets, 'enqueue_scripts' ) );
 
+		$settings_page = new Settings_Page( $this->settings );
+		add_action('admin_menu', array($settings_page,'add_settings_page'));
+		add_action('admin_init', array($settings_page,'setup_sections'));
+		add_action('admin_init', array($settings_page,'setup_fields'));
 	}
 
 	/**

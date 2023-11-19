@@ -10,7 +10,11 @@ namespace Plugin_Package_Name;
 /**
  * Typed settings.
  */
-class Settings {
+class Settings implements Settings_Interface {
+
+	public function get_plugin_name(): string {
+		return 'plugin_title';
+	}
 
 	/**
 	 * The current plugin version, as defined in the root plugin file, or a string hopefully in sync with the root file.
@@ -42,5 +46,13 @@ class Settings {
 		return defined( 'PLUGIN_NAME_BASENAME' )
 			? PLUGIN_NAME_BASENAME
 			: 'plugin-slug/plugin-slug.php';
+	}
+
+	public function get_plugin_slug(): string {
+		return 'plugin-slug';
+	}
+
+	public function get_log_level(): string {
+		return get_option( 'plugin_snake_lower_log_level', 'notice' );
 	}
 }

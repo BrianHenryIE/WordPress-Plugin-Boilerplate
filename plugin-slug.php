@@ -30,6 +30,7 @@
 
 namespace Plugin_Package_Name;
 
+use BrianHenryIE\WP_Logger\Logger;
 use Plugin_Package_Name\WP_Includes\Activator;
 use Plugin_Package_Name\WP_Includes\Deactivator;
 
@@ -66,6 +67,7 @@ register_deactivation_hook( __FILE__, array( Deactivator::class, 'deactivate' ) 
 function instantiate_plugin_snake_lower(): Plugin_Snake {
 
 	$settings = new Settings();
+	$logger = Logger::instance($settings);
 
 	$plugin = new Plugin_Snake( $settings );
 
