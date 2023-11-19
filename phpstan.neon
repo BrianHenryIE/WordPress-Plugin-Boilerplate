@@ -5,8 +5,10 @@ parameters:
         - plugin-slug.php
         - autoload.php
         - uninstall.php
+        - tests
     excludePaths:
         - vendor-prefixed
+        - tests/_support
     bootstrapFiles:
         - phpstanbootstrap.php
         - autoload.php
