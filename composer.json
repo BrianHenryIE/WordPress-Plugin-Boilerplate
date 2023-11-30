@@ -75,7 +75,7 @@
     "codeception/module-phpbrowser": "^1.0",
     "codeception/module-webdriver": "^1.0",
     "codeception/util-universalframework": "^1.0",
-    "cweagans/composer-patches": "^.17",
+    "cweagans/composer-patches": "^1.7",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
     "jaschilz/php-coverage-badger": "^2.0",
     "johnpbloch/wordpress": "*",
