@@ -101,7 +101,7 @@ Then the renaming/replacing:
 ```
 find . -depth -name '*plugin-slug*' -execdir bash -c 'git mv "$1" "${1//plugin-slug/'$plugin_slug'}"' bash {} \;
 find . -depth \( -name '*.php' -o -name '*.txt' -o -name '.env.testing' -o -name '*.md' \) -exec sed -i '' "s/plugin_title/$plugin_name/g" {} +
-find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' -o -name '.env.testing'  -o -name '*.yml' -o -name '.gitignore' -o -name '.htaccess' -o -name '*.md' \) -exec sed -i '' 's/plugin-slug/'$plugin_slug'/g' {} +
+find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' -o -name '.env.testing'  -o -name '*.yml' -o -name '.gitignore' -o -name '.htaccess'  -o -name '.sh' -o -name '*.md' \) -exec sed -i '' 's/plugin-slug/'$plugin_slug'/g' {} +
 find . -depth \( -name '*.php' -o -name '*.testing' \) -exec sed -i '' 's/plugin_snake_lower/'$plugin_snake_lower'/g' {} +
 find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.json' -o -name '*.xml' \) -exec sed -i '' 's/Plugin_Snake/'$plugin_snake'/g' {} \;
 find . -type f \( -name '*.php' -o -name '*.txt' -o -name '*.xml' \) -exec sed -i '' 's/Plugin_Package_Name/'$plugin_package_name'/g' {} \;
