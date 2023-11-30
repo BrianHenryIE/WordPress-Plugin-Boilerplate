@@ -26,6 +26,11 @@
     <exclude-pattern>/wordpress/</exclude-pattern>
     <exclude-pattern>/wp-content/</exclude-pattern>
 
+    <!-- Don't suggest WordPress functions during unit tests -->
+    <rule ref="WordPress.WP.AlternativeFunctions">
+        <exclude-pattern>*/tests/unit/*</exclude-pattern>
+    </rule>
+
     <!-- Enforce fewer rules on tests -->
     <rule ref="Generic.Commenting.DocComment.MissingShort">
         <exclude-pattern>*/tests/*</exclude-pattern>

@@ -7,10 +7,12 @@
 
 namespace Plugin_Package_Name;
 
+use BrianHenryIE\WP_Logger\Logger_Settings_Interface;
+
 /**
  * Typed settings.
  */
-class Settings implements Settings_Interface {
+class Settings implements Settings_Interface, Logger_Settings_Interface {
 
 	public function get_plugin_name(): string {
 		return 'plugin_title';

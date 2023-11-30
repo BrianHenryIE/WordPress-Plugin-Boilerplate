@@ -84,7 +84,7 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 	 */
 	public function test_enqueue_scripts(): void {
 
-		global $plugin_root_dir, $plugin_slug;
+		global $plugin_root_dir, $plugin_slug, $plugin_basename;
 
 		// Return any old url.
 		\WP_Mock::userFunction(
@@ -95,8 +95,8 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 		);
 
 		$handle    = $plugin_slug;
-		$js_file   = $plugin_root_dir . '/assets/bh-wc-bitcoinpostage-shipping-method-admin.js';
-		$js_url    = "https://example.org/wp-content/plugins/{$plugin_slug}/assets/bh-wc-bitcoinpostage-shipping-method-admin.js";
+		$js_file   = "{$plugin_root_dir}/assets/{$plugin_slug}-admin.js";
+		$js_url    = "https://example.org/wp-content/plugins/{$plugin_slug}/assets/{$plugin_slug}-admin.js";
 		$deps      = array( 'jquery' );
 		$ver       = '1.0.0';
 		$in_footer = true;
@@ -152,7 +152,7 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 			Settings::class,
 			array(
 				'get_plugin_version'  => '1.0.0',
-				'get_plugin_basename' => 'bh-wc-bitcoinpostage-shipping-method/bh-wc-bitcoinpostage-shipping-method.php',
+				'get_plugin_basename' => $plugin_basename,
 			)
 		);
 
