@@ -1,4 +1,9 @@
 
+```bash
+# List the available scripts
+composer run-script -l
+```
+
 `composer show --self`
 `composer show --direct`
 `composer show --outdated`

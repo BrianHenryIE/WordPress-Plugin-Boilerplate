@@ -164,7 +164,7 @@
         "restore-acceptance-database": [
             "export $(grep -v '^#' .env.testing | xargs); mysql $TEST_SITE_DB_NAME < tests/_data/dump.sql"
         ],
-        "coverage-tests": [
+        "test-coverage": [
             "codecept run unit --coverage unit.cov",
             "codecept run wpunit --coverage wpunit.cov",
             "phpcov merge --clover tests/_output/clover.xml --html tests/_output/html tests/_output;",
@@ -188,5 +188,17 @@
         "github-actions":  [
             "act -P ubuntu-latest=shivammathur/node:latest"
         ]
+    },
+    "scripts-descriptions": {
+        "create-symlinks": "Create sylimks between /wordpress, /wp-content and the root plugin for convenience.",
+        "configure-phpstorm": "Add directories to PhpStorm's excluded folders list and add PHPUnit run configurations.",
+        "prefix-namespaces": "Prefix the namespaces of Composer packages using brianhenryie/strauss to avoid conflicts with other plugins.",
+        "test": "Run PHPUnit tests",
+        "test-coverage": "Run PHPUnit tests with coverage. Use `XDEBUG_MODE=coverage composer test-coverage` to run, `open ./coverage-report/index.html` to view.",
+        "cs-fix": "Run PHP Code Beautifier and Fixer",
+        "cs-fix-changes": "Run @cs-fix on files since the last commmit",
+        "create-plugin-archive": "Generate i18n .pot and create a plugin .zip using the exclusion list in .distignore",
+        "php-compatibility": "Run PHPCompatibilityWP",
+        "github-actions": "Run the GitHub Actions workflow locally using nektos/act"
     }
 }
