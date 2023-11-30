@@ -1,0 +1,19 @@
+{
+  "name": "plugin-slug",
+  "version": "1.0.0",
+  "description": "The popular [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/) with added Composer, namespaces, autoloading, Codeception testing, and GitHub Actions WordPress.org deployment.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.1",
+    "@wordpress/e2e-test-utils-playwright": "^0.15.0",
+    "@wordpress/env": "^8.13.0"
+  }
+}
