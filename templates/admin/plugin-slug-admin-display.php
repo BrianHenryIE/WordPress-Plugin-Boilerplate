@@ -24,17 +24,17 @@
 
 <div class="wrap <?php echo esc_attr( $plugin_slug ); ?>">
 
-    <h2><?php echo esc_html( $plugin_name ); ?></h2>
+	<h2><?php echo esc_html( $plugin_name ); ?></h2>
 
 	<?php settings_errors(); ?>
 
 
-    <form method="POST" action="options.php">
+	<form method="POST" action="options.php">
 		<?php
 		settings_fields( $plugin_slug );
 		do_settings_sections( $plugin_slug );
 		submit_button();
 		?>
-    </form>
+	</form>
 
 </div>

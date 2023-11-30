@@ -31,7 +31,5 @@ class I18n_Integration_Test extends \Codeception\TestCase\WPTestCase {
 
 		// Seems to fail because there are no translations to load.
 		$this->assertTrue( is_textdomain_loaded( 'plugin-slug' ), 'i18n text domain not loaded.' );
-
 	}
-
 }

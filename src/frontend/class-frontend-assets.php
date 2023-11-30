@@ -52,7 +52,6 @@ class Frontend_Assets {
 		$plugin_url = plugin_dir_url( $this->settings->get_plugin_basename() );
 
 		wp_enqueue_style( 'plugin-slug', $plugin_url . 'assets/plugin-slug-frontend.css', array(), $version, 'all' );
-
 	}
 
 	/**
@@ -68,7 +67,5 @@ class Frontend_Assets {
 		$plugin_url = plugin_dir_url( $this->settings->get_plugin_basename() );
 
 		wp_enqueue_script( 'plugin-slug', $plugin_url . 'assets/plugin-slug-frontend.js', array( 'jquery' ), $version, false );
-
 	}
-
 }

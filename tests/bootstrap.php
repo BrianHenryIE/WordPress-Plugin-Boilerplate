@@ -3,7 +3,7 @@
  * @package           PHP_Package_Name
  */
 
-$GLOBALS['project_root_dir']   = $project_root_dir  = dirname( __FILE__, 2 );
+$GLOBALS['project_root_dir']   = $project_root_dir  = dirname( __DIR__, 1 );
 $GLOBALS['plugin_root_dir']    = $plugin_root_dir   = $project_root_dir;
 $GLOBALS['plugin_slug']        = $plugin_slug       = basename( $project_root_dir );
 $GLOBALS['plugin_file_php']    = $plugin_file_php   = $plugin_slug . '.php';

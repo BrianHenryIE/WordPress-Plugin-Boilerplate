@@ -63,7 +63,6 @@ class Plugin_Snake {
 		$plugin_i18n = new I18n();
 
 		add_action( 'init', array( $plugin_i18n, 'load_plugin_textdomain' ) );
-
 	}
 
 	/**
@@ -79,9 +78,9 @@ class Plugin_Snake {
 		add_action( 'admin_enqueue_scripts', array( $admin_assets, 'enqueue_scripts' ) );
 
 		$settings_page = new Settings_Page( $this->settings );
-		add_action('admin_menu', array($settings_page,'add_settings_page'));
-		add_action('admin_init', array($settings_page,'setup_sections'));
-		add_action('admin_init', array($settings_page,'setup_fields'));
+		add_action( 'admin_menu', array( $settings_page, 'add_settings_page' ) );
+		add_action( 'admin_init', array( $settings_page, 'setup_sections' ) );
+		add_action( 'admin_init', array( $settings_page, 'setup_fields' ) );
 	}
 
 	/**
@@ -96,7 +95,5 @@ class Plugin_Snake {
 
 		add_action( 'wp_enqueue_scripts', array( $frontend_assets, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $frontend_assets, 'enqueue_scripts' ) );
-
 	}
-
 }

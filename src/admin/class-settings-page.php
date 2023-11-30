@@ -100,7 +100,7 @@ class Settings_Page {
 		add_settings_section(
 			'default',
 			'Settings',
-			function(){},
+			function (){},
 			$settings_page_slug_name
 		);
 	}
@@ -116,7 +116,7 @@ class Settings_Page {
 		$setting_id = 'plugin-snake-lower_log_level';
 
 		$print_settings_field_args = array(
-			'helper' => __( 'Set to Debug to diagnose problems, Info to see standard operation of this plugin. NB: Debug logs may contain private information.', 'bh-wc-bitcoinpostage-shipping-method' ),
+			'helper'       => __( 'Set to Debug to diagnose problems, Info to see standard operation of this plugin. NB: Debug logs may contain private information.', 'bh-wc-bitcoinpostage-shipping-method' ),
 			'supplemental' => __( 'default: Notice', 'plugin-slug' ),
 		);
 
@@ -143,7 +143,7 @@ class Settings_Page {
 			LogLevel::WARNING,
 			LogLevel::NOTICE,
 			LogLevel::INFO,
-			LogLevel::DEBUG
+			LogLevel::DEBUG,
 		);
 
 		printf(
@@ -155,18 +155,18 @@ class Settings_Page {
 
 		$supplemental = sprintf(
 			'<p class="description">%s – <a href="%s">%s</a></p>',
-			esc_html(  __( 'default: Notice', 'plugin-slug' ) ),
+			esc_html( __( 'default: Notice', 'plugin-slug' ) ),
 			esc_url( $logs_url ),
-			esc_html(  __( 'View Logs', 'plugin-slug' ) ),
+			esc_html( __( 'View Logs', 'plugin-slug' ) ),
 		);
 
 		$this->print_html_select(
 			array(
-				'options' => $log_levels,
-				'selected' => $this->settings->get_log_level(),
+				'options'       => $log_levels,
+				'selected'      => $this->settings->get_log_level(),
 				'selected_name' => ucfirst( $this->settings->get_log_level() ),
-				'helper' => $args['helper'],
-				'supplemental' =>$supplemental,
+				'helper'        => $args['helper'],
+				'supplemental'  => $supplemental,
 			)
 		);
 	}
@@ -184,17 +184,16 @@ class Settings_Page {
 			wp_kses( $args['helper'], array( 'i' => array() ) )
 		);
 
-		if( isset( $args['supplemental'] ) ) {
+		if ( isset( $args['supplemental'] ) ) {
 			echo wp_kses_post( $args['supplemental'] );
 		}
-
 	}
 
 	/**
 	 * TODO: move to wp-includes/class-settings.php
 	 *
 	 * @hooked admin_init
-     */
+	 */
 	public function register_settings(): void {
 		$setting_id = 'plugin-snake-lower_log_level';
 
@@ -212,7 +211,7 @@ class Settings_Page {
 		$register_setting_args_array = array(
 			'type'              => 'string',
 			'description'       => "The log level for {$this->settings->get_plugin_name()}.",
-			'sanitize_callback' => array( $this, 'sanitize_log_level'),
+			'sanitize_callback' => array( $this, 'sanitize_log_level' ),
 			'show_in_rest'      => false,
 			'default'           => 'notice',
 		);

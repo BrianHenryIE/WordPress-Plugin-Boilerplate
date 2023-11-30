@@ -79,5 +79,4 @@ class Plugin_Snake_Unit_Test extends \Codeception\Test\Unit {
 		$settings = $this->make( Settings::class );
 		new Plugin_Snake( $settings );
 	}
-
 }

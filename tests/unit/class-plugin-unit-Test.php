@@ -16,7 +16,7 @@ use Psr\Log\NullLogger;
  */
 class Plugin_Unit_Test extends \Codeception\Test\Unit {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		\WP_Mock::setUp();
 	}
@@ -35,12 +35,13 @@ class Plugin_Unit_Test extends \Codeception\Test\Unit {
 		// Prevents code-coverage counting, and removes the need to define the WordPress functions that are used in that class.
 		\Patchwork\redefine(
 			array( Plugin_Snake::class, '__construct' ),
-			function() {}
+			function () {}
 		);
 
 		\Patchwork\redefine(
 			array( Logger::class, 'instance' ),
-			function( $settings ) { return new NullLogger(); }
+			function ( $settings ) {
+				return new NullLogger(); }
 		);
 
 		// Defined in `bootstrap.php`.
@@ -109,7 +110,5 @@ class Plugin_Unit_Test extends \Codeception\Test\Unit {
 		$this->assertArrayHasKey( 'plugin_snake_lower', $GLOBALS );
 
 		$this->assertInstanceOf( Plugin_Snake::class, $GLOBALS['plugin_snake_lower'] );
-
 	}
-
 }

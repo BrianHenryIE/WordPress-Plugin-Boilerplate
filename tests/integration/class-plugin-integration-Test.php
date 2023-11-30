@@ -22,5 +22,4 @@ class Plugin_Integration_Test extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertInstanceOf( Plugin_Package_Name::class, $GLOBALS['plugin_snake_lower'] );
 	}
-
 }

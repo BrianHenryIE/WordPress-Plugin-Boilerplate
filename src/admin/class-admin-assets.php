@@ -64,7 +64,6 @@ class Admin_Assets {
 		$plugin_dir = plugin_dir_url( $this->settings->get_plugin_basename() );
 
 		wp_enqueue_style( 'plugin-slug', $plugin_dir . 'assets/plugin-slug-admin.css', array(), $version, 'all' );
-
 	}
 
 	/**
@@ -92,7 +91,7 @@ class Admin_Assets {
 		$script_data      = array(
 			'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 			'nonce'     => wp_create_nonce( self::class ),
-			'isWpDebug' => defined( 'WP_DEBUG' ) ? constant('WP_DEBUG') : false,
+			'isWpDebug' => defined( 'WP_DEBUG' ) ? constant( 'WP_DEBUG' ) : false,
 		);
 		$script_data_json = wp_json_encode( $script_data, JSON_PRETTY_PRINT );
 
@@ -106,5 +105,4 @@ EOD;
 			'before'
 		);
 	}
-
 }

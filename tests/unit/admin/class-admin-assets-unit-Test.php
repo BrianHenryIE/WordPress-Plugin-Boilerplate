@@ -131,7 +131,7 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 				'times' => 1,
 				'args'  => array(
 					\WP_Mock\Functions::type( 'array' ),
-					\WP_Mock\Functions::type( 'int' )
+					\WP_Mock\Functions::type( 'int' ),
 				),
 			)
 		);
@@ -143,7 +143,7 @@ class Admin_Assets_Test extends \Codeception\Test\Unit {
 				'args'  => array(
 					'plugin-slug',
 					\WP_Mock\Functions::type( 'string' ),
-					'before'
+					'before',
 				),
 			)
 		);

@@ -35,5 +35,4 @@ class PluginsPageCest {
 
 		$I->cantSee( $default_plugin_description );
 	}
-
 }

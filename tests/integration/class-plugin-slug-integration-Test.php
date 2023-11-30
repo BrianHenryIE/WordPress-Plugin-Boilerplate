@@ -62,6 +62,5 @@ class Plugin_Snake_Integration_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotNull( $hooked_method, "No methods on an instance of $class_type hooked to $action_name" );
 
 		$this->assertEquals( $method_name, $hooked_method, "Unexpected method name for $class_type class hooked to $action_name" );
-
 	}
 }
