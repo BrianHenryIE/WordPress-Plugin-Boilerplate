@@ -11,9 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
-    "@types/node": "^20.10.1",
-    "@wordpress/e2e-test-utils-playwright": "^0.15.0",
-    "@wordpress/env": "^8.13.0"
+    "@playwright/test": "^1.40",
+    "@types/node": "^20.10",
+    "@wordpress/e2e-test-utils-playwright": "^0.15",
+    "@wordpress/env": "^8.13"
   }
 }
