@@ -67,9 +67,3 @@ To clear Codeception cache after moving/removing test files:
 ```
 vendor/bin/codecept clean
 ```
-
-### More Information
-
-See [github.com/BrianHenryIE/WordPress-Plugin-Boilerplate](https://github.com/BrianHenryIE/WordPress-Plugin-Boilerplate) for initial setup rationale. 
-
-# Acknowledgements
