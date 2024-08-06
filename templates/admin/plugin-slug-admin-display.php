@@ -6,7 +6,7 @@
  *
  * @see \Plugin_Package_Name\Admin\Settings_Page
  * @see \Plugin_Package_Name\Admin\Settings_Page::print_plugin_admin_page()
- * @see \Plugin_Package_Name\Admin\Admin_Ajax
+ * @see \Plugin_Package_Name\WP_Includes\Admin_Ajax
  *
  * @link       http://example.com
  * @since      1.0.0
