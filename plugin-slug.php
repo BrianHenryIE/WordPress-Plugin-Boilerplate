@@ -74,6 +74,16 @@ function instantiate_plugin_snake_lower(): Plugin_Snake {
 	return $plugin;
 }
 
+// Move to api/class-functions.php
+if ( is_readable( __DIR__ . '/functions.php' ) ) {
+	add_action(
+		'plugins_loaded',
+		function () {
+			require_once __DIR__ . '/functions.php';
+		}
+	);
+}
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and frontend-facing site hooks.
