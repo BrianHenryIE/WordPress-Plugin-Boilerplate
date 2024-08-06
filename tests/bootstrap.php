@@ -24,3 +24,13 @@ if ( file_exists( $env_secret ) ) {
 
 	\Codeception\Configuration::config( $env_secret_fullpath );
 }
+// If there is a secrets file, load it here.
+// Unsure how to define it in codeception.yml while also not committing to GitHub.
+$env_secret_fullpath = realpath( __DIR__ . '/../.env.secret' );
+if ( file_exists( $env_secret_fullpath ) ) {
+
+	$dotenv = Dotenv\Dotenv::createImmutable( codecept_root_dir(), '.env.secret' );
+	$dotenv->load();
+
+	// \Codeception\Configuration::config( $env_secret_fullpath );
+}
