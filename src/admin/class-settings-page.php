@@ -109,7 +109,7 @@ class Settings_Page {
 	 *
 	 * @hooked admin_init
 	 *
-	 * @see https://github.com/reside-eng/wordpress-custom-plugin/blob/master/admin/class-wordpress-custom-plugin-admin.ph\\\]\
+	 * @see https://github.com/reside-eng/wordpress-custom-plugin/blob/master/admin/class-wordpress-custom-plugin-admin.php
 	 */
 	public function setup_fields(): void {
 
@@ -200,13 +200,13 @@ class Settings_Page {
 		/**
 		 * Data used to describe the setting when registered.
 		 *
-		 * @param array $args {
+		 * @param array{
 		 *  type:string,
 		 *  description:string,
 		 *  sanitize_callback:callable,
 		 *  show_in_rest:bool|array,
 		 *  default:mixed
-		 *  }
+		 *  } $args
 		 */
 		$register_setting_args_array = array(
 			'type'              => 'string',
