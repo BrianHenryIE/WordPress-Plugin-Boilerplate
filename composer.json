@@ -2,7 +2,7 @@
   "name": "PHP_Package_Name",
   "description": "This is a short description of what plugin_title does.",
   "type": "wordpress-plugin",
-  "license": "GPL-2.0+-or-later",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Your Name",
@@ -35,21 +35,13 @@
     }
   },
   "repositories": {
-    "brianhenryie/composer-phpstorm": {
-      "url": "https://github.com/BrianHenryIE/composer-phpstorm",
-      "type": "git"
-    },
-    "brianhenryie/bh-wp-logger": {
-      "url": "https://github.com/BrianHenryIE/bh-wp-logger",
-      "type": "git"
-    },
-    "brianhenryie/bh-wp-private-uploads": {
-      "url": "https://github.com/BrianHenryIE/bh-wp-private-uploads",
-      "type": "git"
-    },
     "outlandish/wpackagist": {
       "type": "composer",
-      "url": "https://wpackagist.org"
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
     },
     "wordpress/wordpress": {
       "url": "https://github.com/WordPress/wordpress-develop",
@@ -66,6 +58,7 @@
     "10up/wp_mock": "^1.0",
     "antecedent/patchwork": "^2.1",
     "brianhenryie/color-logger": "^1.0",
+    "brianhenryie/composer-fallback-to-git": "^0.6.0",
     "brianhenryie/composer-phpstorm": "dev-master",
     "brianhenryie/strauss": "*",
     "codeception/module-asserts": "^1.0",
