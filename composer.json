@@ -85,6 +85,7 @@
     "wp-cli/i18n-command": "^2.4",
     "wp-cli/wp-cli-bundle": "*",
     "wp-coding-standards/wpcs": "^3.0",
+    "wpackagist-plugin/document-generator-for-openapi": "*",
     "wpackagist-plugin/log-http-requests": "*",
     "wpackagist-plugin/query-monitor": "*",
     "wpackagist-plugin/user-role-editor": "*",
@@ -93,7 +94,8 @@
     "wpackagist-plugin/wp-mail-debugger": "^1.1",
     "wpackagist-plugin/wp-rest-api-log": "*",
     "wpackagist-theme/storefront": "*",
-    "wpackagist-theme/twentytwenty": "*"
+    "wpackagist-theme/twentytwenty": "*",
+    "wpackagist-theme/twentytwentyfour": "*"
   },
   "extra": {
     "patches": {
@@ -168,6 +170,10 @@
     "create-plugin-archive": [
       "wp i18n make-pot src languages/$(basename \"$PWD\").pot --domain=$(basename \"$PWD\")",
       "wp dist-archive . ./dist-archive --plugin-dirname=$(basename \"$PWD\") --create-target-dir"
+    ],
+    "generate-openapi": [
+      "npx wp-env run cli /var/www/html/wp-content/plugins/example-plugin/vendor/bin/wp openapi-generator export-file example-plugin/v1 --destination=./openapi/example-plugin-openapi.json --extract-common-types;",
+      "cat ./openapi/example-plugin-openapi.json | jq 'del(.servers) | del(.paths.\"/\") | .jsonSchemaDialect = \"https://spec.openapis.org/oas/3.1/dialect/base\"' | sponge ./openapi/example-plugin-openapi.json"
     ],
     "github-actions": [
       "act -P ubuntu-latest=shivammathur/node:latest"

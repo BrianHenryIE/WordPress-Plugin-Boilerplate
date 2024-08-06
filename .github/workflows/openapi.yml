@@ -1,0 +1,109 @@
+name: OpenAPI
+
+# Generate the OpenAPI documentation
+
+# Automatically creates the gh-pages branch but it needs to be manually enabled in the repository settings.
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'includes/wp-includes/class-rest.php'
+
+jobs:
+
+  openapi:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: install more-utils for sponge
+        run: sudo apt-get install moreutils
+
+      - name: Check does gh-pages branch need to be created
+        run: |
+          git checkout origin/gh-pages || true;
+          if [[ $(git branch -l gh-pages) == "" ]]; then
+            gh_pages_branch_needed=true;
+          else
+            gh_pages_branch_needed=false;
+          fi
+          echo "GH_PAGES_BRANCH_NEEDED=$gh_pages_branch_needed" >> $GITHUB_ENV;
+          mkdir gh-pages ||  true;
+
+      - name:  Create gh-pages branch because previous step indicates it does not exist
+        if: ${{ env.GH_PAGES_BRANCH_NEEDED == true }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gh-pages
+          force_orphan: true
+          allow_empty_commit: true
+          commit_message: "🤖 Creating gh-pages branch"
+
+      - name: Checkout GitHub Pages branch for code coverage report
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+          tools: composer
+          extensions: zip
+
+      - name: Read .env.testing
+        uses: c-py/action-dotenv-to-setenv@v2
+        with:
+          env-file: .env.testing
+
+      - name: Run composer install
+        continue-on-error: true
+        run: composer install
+
+      - name: Run npm install
+        continue-on-error: true
+        run: npm install
+
+      - name: Allow writing to wp-content
+        run: sudo chmod -R a+w wp-content
+
+      - name: Clear previous openapi file
+        run: rm gh-pages/openapi/example-plugin-openapi.json || true;
+
+      - name: Start wp-env
+        run: |
+          mkdir openapi || true;
+          npx wp-env start --debug;
+          sudo chmod -R a+w wordpress/wp-content;
+          mkdir wordpress/wp-content/uploads || true;
+          sudo chmod -R a+w wordpress/wp-content/uploads;
+
+      - name: Generate OpenAPI documentation
+        run: |
+          composer generate-openapi;
+          mkdir gh-pages/openapi || true;
+          cp openapi/example-plugin-openapi.json gh-pages/openapi/example-plugin-openapi.json;
+
+      - name: Commit openapi to gh-pages
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          repository: gh-pages
+          branch: gh-pages
+          commit_message: "🤖 Save OpenAPI document to gh-pages"
+          commit_options: ""
+        env:
+          GITHUB_TOKEN: "${{ github.token }}"
