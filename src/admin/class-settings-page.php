@@ -116,7 +116,7 @@ class Settings_Page {
 		$setting_id = 'plugin-snake-lower_log_level';
 
 		$print_settings_field_args = array(
-			'helper'       => __( 'Set to Debug to diagnose problems, Info to see standard operation of this plugin. NB: Debug logs may contain private information.', 'bh-wc-bitcoinpostage-shipping-method' ),
+			'helper'       => __( 'Set to Debug to diagnose problems, Info to see standard operation of this plugin. NB: Debug logs may contain private information.', 'plugin-slug' ),
 			'supplemental' => __( 'default: Notice', 'plugin-slug' ),
 		);
 
