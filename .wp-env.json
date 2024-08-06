@@ -1,16 +1,19 @@
 {
   "env": {
     "development": {
-      "plugins": [
-        "."
-      ]
+      "mappings": {
+        "wp-content/plugins/plugin-slug": "."
+      }
+    },
+    "tests": {
+      "mysqlPort": 63306
     }
   },
   "lifecycleScripts": {
-    "afterStart": "./tests/e2e-pw/setup/initialize-external.sh"
+    "afterStart": "./tests/_wpenv/initialize-external.sh"
   },
   "mappings": {
-    "setup": "./tests/e2e-pw/setup",
+    "setup": "./tests/_wpenv",
     "wp-cli.yml": "./wp-cli.wp-env.yml",
     "wp-content/plugins/wordpress-importer": "./wp-content/plugins/wordpress-importer"
   },

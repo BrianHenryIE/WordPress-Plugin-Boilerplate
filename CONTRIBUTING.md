@@ -21,33 +21,6 @@ open -a PhpStorm ./;
 composer install;
 ```
 
-For integration and acceptance tests, a local webserver must be running with `localhost:8080/plugin-slug/` pointing at the root of the repo. MySQL must also be running locally – with two databases set up with:
-
-```
-mysql_username="root"
-mysql_password="secret"
-
-# export PATH=${PATH}:/usr/local/mysql/bin
-
-# Make .env available 
-# Bash:
-export $(grep -v '^#' .env.testing | xargs)
-# Zsh:
-source .env.testing
-
-# Create the database user:
-# MySQL
-mysql -u $mysql_username -p$mysql_password -e "CREATE USER '"$TEST_DB_USER"'@'%' IDENTIFIED WITH mysql_native_password BY '"$TEST_DB_PASSWORD"';";
-# MariaDB
-mysql -u $mysql_username -p$mysql_password -e "CREATE USER '"$TEST_DB_USER"'@'%' IDENTIFIED BY '"$TEST_DB_PASSWORD"';";
-
-# Create the databases:
-mysql -u $mysql_username -p$mysql_password -e "CREATE DATABASE "$TEST_SITE_DB_NAME"; USE "$TEST_SITE_DB_NAME"; GRANT ALL PRIVILEGES ON "$TEST_SITE_DB_NAME".* TO '"$TEST_DB_USER"'@'%';";
-mysql -u $mysql_username -p$mysql_password -e "CREATE DATABASE "$TEST_DB_NAME"; USE "$TEST_DB_NAME"; GRANT ALL PRIVILEGES ON "$TEST_DB_NAME".* TO '"$TEST_DB_USER"'@'%';";
-
-# Import the WordPress database:
-mysql -u $mysql_username -p$mysql_password $TEST_SITE_DB_NAME < tests/_data/dump.sql
-```
 
 ### WordPress Coding Standards
 

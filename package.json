@@ -14,6 +14,6 @@
     "@playwright/test": "^1.40",
     "@types/node": "^20.10",
     "@wordpress/e2e-test-utils-playwright": "^0.15",
-    "@wordpress/env": "^8.13"
+    "@wordpress/env": "^10.1.0"
   }
 }
