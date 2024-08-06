@@ -1,0 +1,78 @@
+name: WP CLI docs
+
+# Generate the WP CLI documentation
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'includes/wp-includes/class-cli.php'
+
+jobs:
+
+  wpcli-docs:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: install more-utils for sponge
+        run: sudo apt-get install moreutils
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+          tools: composer
+          extensions: zip
+
+      - name: Read .env.testing
+        uses: c-py/action-dotenv-to-setenv@v2
+        with:
+          env-file: .env.testing
+
+      - name: Run composer install
+        continue-on-error: true
+        run: composer install
+
+      - name: Run npm install
+        continue-on-error: true
+        run: npm install
+
+      - name: Allow writing to wp-content
+        run: sudo chmod -R a+w wp-content
+
+      - name: Clear previous WP CLI documents
+        run: rm -rf docs/wpcli || true
+
+      - name: Start wp-env
+        run: |
+          mkdir docs || true;
+          npx wp-env start --debug;
+          sudo chmod -R a+w wordpress/wp-content;
+          mkdir wordpress/wp-content/uploads || true;
+          sudo chmod -R a+w wordpress/wp-content/uploads;
+
+      - name: Generate WP CLI documentation
+        run: composer generate-wp-cli-docs;
+
+      - name: Add to git
+        run: git add -A
+
+      - name: Commit WP CLI doc changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 WP CLI documentation"
+
+
+
