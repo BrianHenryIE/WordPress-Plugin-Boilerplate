@@ -67,7 +67,7 @@ register_deactivation_hook( __FILE__, array( Deactivator::class, 'deactivate' ) 
 function instantiate_plugin_snake_lower(): Plugin_Snake {
 
 	$settings = new Settings();
-	$logger = Logger::instance($settings);
+	$logger   = Logger::instance( $settings );
 
 	$plugin = new Plugin_Snake( $settings );
 
