@@ -529,7 +529,19 @@ The minimum WordPress version can be determined using [wpseek.com's Plugin Docto
 * PATH=$PATH:./vendor/bin
 * https://raw.githubusercontent.com/composer/composer/main/res/composer-schema.json 
 * https://github.com/ImageOptim/gifski
+* https://wordpress.org/plugins/localhost2host-docker-internal/
 
+Plugins with WP CLI tests:
+* https://github.com/ampproject/amp-wp/
+* https://github.com/WordPress/plugin-check
+* https://github.com/wp-graphql/wp-graphql
+* https://github.com/pressbooks/pb-cli
+* https://github.com/patchstack/wpcli-patchstack
+* https://github.com/aaemnnosttv/wp-cli-dotenv-command
+* https://deliciousbrains.com/writing-functional-tests-wp-cli-packages/
+
+Open API
+* https://github.com/swagger-api/swagger-ui/blob/b1d09765fcb8b5ebbdfc736b221e3f8f24e8ebcb/docs/usage/installation.md#unpkg
 
 Tools to investigate:
 
@@ -540,6 +552,24 @@ Tools to investigate:
 * https://github.com/Automattic/wordbless
 * https://github.com/alstr/todo-to-issue-action
 * Dudo1985/WPDocGen
+* https://github.com/spaze/phpstan-disallowed-calls/blob/main/docs/custom-rules.md
+
+REST
+
+* https://developer.wordpress.org/rest-api/extending-the-rest-api/schema/
+* https://json-schema.org/understanding-json-schema/reference/enum
+* https://developer.wordpress.org/rest-api/glossary/
+* https://learn.wordpress.org/course/developing-with-the-wordpress-rest-api/
+* https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS
+* https://developer.wordpress.org/rest-api/extending-the-rest-api/routes-and-endpoints/
+* https://www.baeldung.com/rest-api-error-handling-best-practices
+* https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
+* https://openapi-generator.tech/docs/generators/
+* https://openapi-generator.tech/docs/generators/php/
+* https://openapi-generator.tech/docs/generators/php-dt/
+* https://openapi-generator.tech/docs/generators/php-nextgen/
+* https://github.com/schneiderundschuetz/document-generator-for-openapi
+* 
 
 I have made some progress on a lot of these open an issue with changes you propose working on and I'll tidy up what I have and hopefully save you some time
 
