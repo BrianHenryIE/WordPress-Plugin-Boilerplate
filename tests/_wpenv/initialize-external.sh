@@ -10,7 +10,7 @@ PLUGIN_SLUG=$(basename $PWD)
 echo "Building $PLUGIN_SLUG"
 
 # Build the plugin
-vendor/bin/wp i18n make-pot src languages/$PLUGIN_SLUG.pot --domain=$PLUGIN_SLUG
+vendor/bin/wp i18n make-pot includes languages/$PLUGIN_SLUG.pot --domain=$PLUGIN_SLUG
 vendor/bin/wp dist-archive . ./tests/e2e-pw/setup --plugin-dirname=$PLUGIN_SLUG --filename-format="{name}.latest"
 
 # Run the internal scripts which configure the environments:

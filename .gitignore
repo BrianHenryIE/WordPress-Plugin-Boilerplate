@@ -40,7 +40,7 @@ cache
 
 node_modules
 scratch
-src/vendor-prefixed/
+/vendor-prefixed/
 wp-content/
 wordpress
 /vendor/

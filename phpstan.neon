@@ -1,7 +1,7 @@
 parameters:
     level: 8
     paths:
-        - src
+        - includes
         - plugin-slug.php
         - autoload.php
         - uninstall.php

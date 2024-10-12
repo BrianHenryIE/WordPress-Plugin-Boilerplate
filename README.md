@@ -291,20 +291,20 @@ mysql -u $mysql_username -p$mysql_password $TEST_SITE_DB_NAME < tests/_data/dump
 To create a .zip archive for uploading to WordPress:
 
 ```
-mv src $(basename "`pwd`"); zip -r $(basename "`pwd`").zip $(basename "`pwd`"); mv $(basename "`pwd`") src;
+mv includes $(basename "`pwd`"); zip -r $(basename "`pwd`").zip $(basename "`pwd`"); mv $(basename "`pwd`") includes;
 ```
 
 To configure automatic WordPress.org plugin repository deployment, add your WordPress.org username and password as Secrets `SVN_USERNAME` and `SVN_PASSWORD` in the GitHub repository's settings, then when a Release is created, the plugin will be updated on WordPress.org (from [zerowp.com](https://zerowp.com)'s [Use Github Actions to publish WordPress plugins on WP.org repository](https://zerowp.com/use-github-actions-to-publish-wordpress-plugins-on-wp-org-repository/)).
 
 ## Composer Notes
 
-By convention, WordPress plugins and themes installed by composer get installed into the project's `/wp-content/plugins` and `/wp-content/themes` directory. In a typical PHP project, libraries required by the project during runtime are installed in the `vendor` directory. In the case of this project, libraries are downloaded to the project's `vendor` folder, then their files copied to `src/vendor` and their namespace changed.
+By convention, WordPress plugins and themes installed by composer get installed into the project's `/wp-content/plugins` and `/wp-content/themes` directory. In a typical PHP project, libraries required by the project during runtime are installed in the `vendor` directory. In the case of this project, libraries are downloaded to the project's `vendor` folder, then their files copied to `vendor-prefixed` and their namespace changed.
 
 https://stackoverflow.com/a/32407670/336146
 
 ### Mozart
 
-[Mozart](https://github.com/coenjacobs/mozart) is included in composer.json to prefix libraries' namespaces to avoid clashes with other WordPress plugins. e.g. in this case, [wp-namespace-autoloader](https://github.com/pablo-sg-pacheco/wp-namespace-autoloader) appears in `src/vendor/` with the namespace `Plugin_Name\Pablo_Pacheco\WP_Namespace_Autoloader`.
+[Mozart](https://github.com/coenjacobs/mozart) is included in composer.json to prefix libraries' namespaces to avoid clashes with other WordPress plugins. e.g. in this case, [wp-namespace-autoloader](https://github.com/pablo-sg-pacheco/wp-namespace-autoloader) appears in `vendor-prefixed/` with the namespace `Plugin_Name\Pablo_Pacheco\WP_Namespace_Autoloader`.
 
 To use e.g. a [.ics parser](https://github.com/u01jmg3/ics-parser) in your project:
 
